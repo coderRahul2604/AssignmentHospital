@@ -10,6 +10,7 @@
       .main h2{
         text-align: center;
       }
+      {% comment %} https://github.com/coderRahul2604/AssignmentHospital {% endcomment %}
      
     </style>
   </head>
@@ -29,43 +30,43 @@
           <h2>Signup</h2>
           <form action="/signup" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
             {% csrf_token %}
-            <label for="first_name">First Name:</label><br />
+            <label for="first_name">First Name:*</label><br />
             <input type="text" id="first_name" name="first_name" required /><br /><br />
 
-            <label for="last_name">Last Name:</label><br />
+            <label for="last_name">Last Name:*</label><br />
             <input type="text" id="last_name" name="last_name" required /><br /><br />
 
-            <label for="profile_picture">Profile Picture:</label><br />
+            <label for="profile_picture">Profile Picture:*</label><br />
             <input type="file" id="profile_picture" name="profile_picture" accept="image/*" required /><br /><br />
 
-            <label for="username">Username:</label><br />
+            <label for="username">Username:*</label><br />
             <input type="text" id="username" name="username" required /><br /><br />
 
-            <label for="email">Email:</label><br />
+            <label for="email">Email:*</label><br />
             <input type="email" id="email" name="email" required /><br /><br />
 
-            <label for="password">Password:</label><br />
+            <label for="password">Password:*</label><br />
             <input type="password" id="password" name="password" required /><br /><br />
 
-            <label for="confirm_password">Confirm Password:</label><br />
+            <label for="confirm_password">Confirm Password:*</label><br />
             <input type="password" id="confirm_password" name="confirm_password" required /><br /><br />
 
-            <label>Are you a:</label><br />
+            <label>Are you a:*</label><br />
             <input type="radio" id="doctor" name="user_type" value="doctor" required />
             <label for="doctor">Doctor</label><br />
             <input type="radio" id="patient" name="user_type" value="patient" required />
             <label for="patient">Patient</label><br /><br />
 
-            <label for="address_line1">Address Line 1:</label><br />
+            <label for="address_line1">Address Line 1:*</label><br />
             <input type="text" id="address_line1" name="address_line1" required /><br /><br />
 
-            <label for="city">City:</label><br />
+            <label for="city">City:*</label><br />
             <input type="text" id="city" name="city" required /><br /><br />
 
-            <label for="state">State:</label><br />
+            <label for="state">State:*</label><br />
             <input type="text" id="state" name="state" required /><br /><br />
 
-            <label for="pincode">Pincode:</label><br />
+            <label for="pincode">Pincode:*</label><br />
             <input type="text" id="pincode" name="pincode" required /><br /><br />
 
             <input type="submit" value="Signup" />
@@ -73,6 +74,7 @@
 
           <p style="text-align: center;">I have an account.<span onclick="displaylogin()" id="loginbtn" style="color: blue; cursor: pointer;">Login</span></p>
         </div>
+
 
         <div class="loginform" id="loginform">
           <div id="patientLogin" class="hidden">

@@ -1,0 +1,157 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static '/css/index.css' %}" />
+    <style>
+      .main h2{
+        text-align: center;
+      }
+     
+    </style>
+  </head>
+
+  <body>
+    <div class="message">
+      {% for message in messages %}
+        <div class="alert {{ message.tags }}">
+          <strong>Message:</strong> {{ message }}
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="main" id="main">
+      <div class="forms" id="forms">
+        <div class="signupform" id="signupform" style="display: none;">
+          <h2>Signup</h2>
+          <form action="/signup" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+            {% csrf_token %}
+            <label for="first_name">First Name:</label><br />
+            <input type="text" id="first_name" name="first_name" required /><br /><br />
+
+            <label for="last_name">Last Name:</label><br />
+            <input type="text" id="last_name" name="last_name" required /><br /><br />
+
+            <label for="profile_picture">Profile Picture:</label><br />
+            <input type="file" id="profile_picture" name="profile_picture" accept="image/*" required /><br /><br />
+
+            <label for="username">Username:</label><br />
+            <input type="text" id="username" name="username" required /><br /><br />
+
+            <label for="email">Email:</label><br />
+            <input type="email" id="email" name="email" required /><br /><br />
+
+            <label for="password">Password:</label><br />
+            <input type="password" id="password" name="password" required /><br /><br />
+
+            <label for="confirm_password">Confirm Password:</label><br />
+            <input type="password" id="confirm_password" name="confirm_password" required /><br /><br />
+
+            <label>Are you a:</label><br />
+            <input type="radio" id="doctor" name="user_type" value="doctor" required />
+            <label for="doctor">Doctor</label><br />
+            <input type="radio" id="patient" name="user_type" value="patient" required />
+            <label for="patient">Patient</label><br /><br />
+
+            <label for="address_line1">Address Line 1:</label><br />
+            <input type="text" id="address_line1" name="address_line1" required /><br /><br />
+
+            <label for="city">City:</label><br />
+            <input type="text" id="city" name="city" required /><br /><br />
+
+            <label for="state">State:</label><br />
+            <input type="text" id="state" name="state" required /><br /><br />
+
+            <label for="pincode">Pincode:</label><br />
+            <input type="text" id="pincode" name="pincode" required /><br /><br />
+
+            <input type="submit" value="Signup" />
+          </form>
+
+          <p style="text-align: center;">I have an account.<span onclick="displaylogin()" id="loginbtn" style="color: blue; cursor: pointer;">Login</span></p>
+        </div>
+
+        <div class="loginform" id="loginform">
+          <div id="patientLogin" class="hidden">
+            <h2>Patient Login</h2>
+            <form action="/loginPatient" method="post">
+              {% csrf_token %}
+              <label for="patientUsername">Username:</label><br />
+              <input type="text" id="patientUsername" name="username" required /><br /><br />
+              <label for="patientPassword">Password:</label><br />
+              <input type="password" id="patientPassword" name="password" required /><br /><br />
+              <input type="submit" value="Login" />
+            </form>
+          </div>
+          
+          <div id="doctorLogin">
+            <h2>Doctor Login</h2>
+            <form action="/loginDoctor" method="post">
+              {% csrf_token %}
+              <label for="doctorUsername">Username:</label><br />
+              <input type="text" id="doctorUsername" name="username" required /><br /><br />
+              <label for="doctorPassword">Password:</label><br />
+              <input type="password" id="doctorPassword" name="password" required /><br /><br />
+              <input type="submit" value="Login" />
+            </form>
+          </div>
+
+          <button id="togglebtn" onclick="toggleForms()">Switch to Patient Login</button>
+          <p style="text-align: center;">I don't have account.<span onclick="displaysignup()" id="signupbtn" style="color: blue; cursor: pointer;">Signup</span></p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var loginform = document.getElementById('loginform')
+      var signupform = document.getElementById('signupform')
+      var messages = document.querySelectorAll('.message .alert')
+      
+      messages.forEach(function (message) {
+        setTimeout(function () {
+          message.style.display = 'none'
+        }, 5000)
+      })
+      
+      function displaylogin() {
+        signupform.style.display = 'none'
+        loginform.style.display = 'block'
+        
+      }
+      function displaysignup() {
+        signupform.style.display = 'block'
+        loginform.style.display = 'none'
+        
+      }
+      
+      function validateForm() {
+        var password = document.getElementById('password').value
+        var confirmPassword = document.getElementById('confirm_password').value
+      
+        if (password !== confirmPassword) {
+          alert('Passwords do not match')
+          return false
+        }
+        return true
+      }
+      function toggleForms() {
+        var patientLogin = document.getElementById('patientLogin')
+        var doctorLogin = document.getElementById('doctorLogin')
+        var togglebtn = document.getElementById('togglebtn')
+      
+        if (patientLogin.classList.contains('hidden')) {
+          patientLogin.classList.remove('hidden')
+          doctorLogin.classList.add('hidden')
+          togglebtn.innerHTML = 'Switch to Doctor Login'
+        } else {
+          patientLogin.classList.add('hidden')
+          doctorLogin.classList.remove('hidden')
+          togglebtn.innerHTML = 'Switch to Patient Login'
+        }
+      }
+    </script>
+  </body>
+</html>
